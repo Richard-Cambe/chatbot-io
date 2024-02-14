@@ -1,3 +1,4 @@
+import Error404 from './controllers/Error404';
 
 const Router = class {
   constructor(routes = []) {
@@ -16,7 +17,7 @@ const Router = class {
   startController() {
     let ifExist = false;
 
-    for (let i = 0; i < this.routes.length; i+=1) {
+    for (let i = 0; i < this.routes.length; i += 1) {
       const route = this.routes[i];
 
       if (route.url === this.path) {
@@ -31,12 +32,13 @@ const Router = class {
 
     if (!ifExist) {
       new Error404();
+      console.log('hello');
     }
   }
 
   run() {
     this.startController();
   }
-}
+};
 
 export default Router;
