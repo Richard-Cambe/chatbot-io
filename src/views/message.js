@@ -6,11 +6,11 @@ export default () => (`
     <div class="col-6">
     </div>
     <div class="col-6">
-      <div class="card mb-3" style="max-width: 540px;">
+      <div class="MyText" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-8">
             <div class="card-body">
-              <p class="Mycard-text">Bonjour, je m'appelle Pablo, j'utilise Chatbot pour la première fois ! </p>
+              <p class="Mycard-text">Pour l'instant ça va, merci !</p><br><br>
               <p class="Mycard-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
             </div>
           </div>
@@ -43,24 +43,24 @@ export default () => (`
   </div>
 
   <div class="row">
-  <div class="col-6">
-  </div>
-  <div class="col-6">
-    <div class="MyText" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-8">
-          <div class="card-body">
-            <p class="Mycard-text">Pour l'instant ça va, merci !</p><br><br>
-            <p class="Mycard-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+    <div class="col-6">
+    </div>
+    <div class="col-6">
+      <div class="MyText" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-8">
+            <div class="card-body">
+              <p class="Mycard-text">Pour l'instant ça va, merci !</p><br><br>
+              <p class="Mycard-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <img src="${user}" class="img-fluid rounded-start" alt="...">
+          <div class="col-md-4">
+            <img src="${user}" class="img-fluid rounded-start" alt="...">
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
   <div class="input-group mb-3 fixed-bottom container">

@@ -21,7 +21,11 @@ body {
 .Nav > h1 {
   color: #ff4802;
 }
-.Nav > button{
+.Nav > a{
+  text-decoration: none;
+  color: #ff4802;
+}
+.Nav > div > button{
   border-radius: 45px;
   background-color: #ff4802;
   color:#fff;
