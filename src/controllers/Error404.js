@@ -6,7 +6,10 @@ const Quatre04 = class {
   }
 
   render() {
-    return '<h1>404</h1>';
+    return `
+      <h1>404</h1>
+      <p class="tutu"> hello </p>
+    `;
   }
 
   run() {

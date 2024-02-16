@@ -32,7 +32,6 @@ const Router = class {
 
     if (!ifExist) {
       new Error404();
-      console.log('hello');
     }
   }
 
