@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+body {
+  font-family: "Goldman", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .Nav{
   display: flex;
   justify-content: center;
@@ -19,10 +25,10 @@
   border-radius: 45px;
   background-color: #ff4802;
   color:#fff;
-  padding-right: 1em;
-  padding-left:1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-right: 0.8em;
+  padding-left:0.8em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
   border:none;
   text-transform: uppercase;
 }
