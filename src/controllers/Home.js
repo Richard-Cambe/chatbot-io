@@ -1,7 +1,3 @@
-import viewNav from '../views/nav';
-import viewMessage from '../views/message';
-import viewContacts from '../views/contacts';
-
 const Home = class {
   constructor(params) {
     this.el = document.querySelector('#root');
@@ -12,18 +8,9 @@ const Home = class {
 
   render() {
     return `
-      <div class="container">
-        <div class="row">
-          <div class="col-12"> ${viewNav()} </div>
-        </div>
-        <div class="row">
-          <div class="col-3">
-            ${viewContacts()}
-          </div>
-          <div class="col-9">
-            ${viewMessage()}
-          </div>
-      </div>
+      <p>home</p>
+      <a href="/message"> clic </a>
+      <button>hello</button>
     `;
   }
 
