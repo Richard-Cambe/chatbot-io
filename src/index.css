@@ -1,25 +1,26 @@
-@charset "utf-8";
-
-.Nav{
+.Nav {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   justify-content: space-around;
   border-bottom: solid 1px orangered;
 }
+
 .Nav > h1 {
   color: red;
 }
-.Nav > button{
+
+.Nav > button {
   border-radius: 20%;
   background-color: orangered;
-  color:#fff;
+  color: #fff;
   max-height: 50px;
   padding-right: 1em;
-  padding-left:1em;
+  padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-.fox{
-  width:15%;
-}
+
+.fox {
+  width: 15%;
+}/*# sourceMappingURL=index.css.map */
