@@ -4,22 +4,33 @@
   display: flex;
   justify-content: center;
   align-items:center;
-  justify-content: space-around;
-  border-bottom: solid 1px orangered;
+  justify-content: space-between;
+  border-bottom: solid 1px #ff4802;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 .Nav > h1 {
-  color: red;
+  color: #ff4802;
 }
 .Nav > button{
-  border-radius: 20%;
-  background-color: orangered;
+  border-radius: 45px;
+  background-color: #ff4802;
   color:#fff;
-  max-height: 50px;
   padding-right: 1em;
   padding-left:1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  border:none;
+  text-transform: uppercase;
+}
+.Nav > button:hover{
+  background-color: #fff;
+  color: #ff4802;
+  border: solid #ff4802;
+
 }
 .fox{
-  width:15%;
+  width:10%;
 }
