@@ -41,6 +41,9 @@ body {
 .fox{
   width:10%;
 }
+.card-body{
+  margin-bottom: 1em;
+}
 .MyText{
   border: solid 2px rgb(194, 91, 18);
   border-radius: 35px;
@@ -52,8 +55,25 @@ body {
 .Mycard-text{
   color:#fff
 }
-
 .botText{
-  border:rgb(194, 91, 18) solid 2px;
+  border:#ff4802 solid 2px;
   border-radius: 35px;
+  align-items: center;
+}
+.botcard-text{
+  color: #ff4802;
+}
+.input-group{
+  margin-top: 3em;
+  border-color: #ff4802;
+}
+.btn{
+  background-color: #ff4802;
+  color:#fff;
+  border: none;
+}
+.btn:hover{
+  background-color: #fff;
+  color: #ff4802;
+  border: solid #ff4802; 
 }
