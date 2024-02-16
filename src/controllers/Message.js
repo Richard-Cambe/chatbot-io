@@ -12,14 +12,14 @@ const Message = class {
 
   render() {
     return `
-      <div class="row">
-        <div class="col-12"> ${viewNav()} </div>
-      </div>
+      ${viewNav()}
       <div class="container">
-        ${viewMessage()}
         <div class="row">
           <div class="col-3">
             ${viewContacts()}
+          </div>
+          <div class="col-9">
+            ${viewMessage()}
           </div>
         </div>
       </div>
