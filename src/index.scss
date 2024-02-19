@@ -4,6 +4,7 @@ body {
   font-family: "Goldman", sans-serif;
   font-weight: 400;
   font-style: normal;
+  z-index:1000;
 }
 
 .Nav{
@@ -46,7 +47,6 @@ body {
   background-color: #fff;
   color: #ff4802;
   border: solid #ff4802;
-
 }
 .fox{
   width:10%;
@@ -88,5 +88,7 @@ body {
   color: #ff4802;
   border: solid #ff4802; 
 }
-
+.badge{
+  background-color: #ff4802;
+}
 
