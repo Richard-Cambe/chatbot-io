@@ -4,7 +4,7 @@ import Message from './controllers/Message';
 import './index.scss';
 
 const routes = [{
-  url: '/home',
+  url: '/',
   controller: Home
 }, {
   url: '/message',

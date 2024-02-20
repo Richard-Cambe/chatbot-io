@@ -9,11 +9,16 @@ const Message = class {
     this.run();
   }
 
+  autoScroll() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
   render() {
     return `
       ${viewNav()}
       <div class="container">
         ${viewMessage()}
+        ${this.autoScroll()}
       </div>
     `;
   }

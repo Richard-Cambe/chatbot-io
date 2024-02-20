@@ -6,12 +6,13 @@ export default () => (`
       <div class="botText d-flex" style="max-width: 540px;">
         <div class="col-md-4">
           <img src="${logo}" class="img-fluid rounded-start" alt="...">
+          <p class="botcard-text"><small class="text-body-secondary">${Date.now()}</small></p>
         </div>
         <div class="row g-0">
           <div class="col-md-8">
             <div class="card-body">
               <p class="botcard-text">Salut Pablo ! J'espère que ça va te plaire ! </p><br><br>
-              <p class="botcard-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              <p class="botcard-text"><small class="text-body-secondary">${Date.now()}</small></p>
             </div>
           </div>
         </div>
