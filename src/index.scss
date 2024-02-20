@@ -17,6 +17,12 @@ body {
   padding-left: 5%;
   padding-right: 5%;
   margin-bottom: 3em;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
 }
 .Nav > h1 {
   color: #ff4802;
@@ -47,6 +53,7 @@ body {
 }
 .card-body{
   margin-bottom: 1em;
+  padding: 1em;
 }
 .MyText{
   border: solid 2px rgb(194, 91, 18);
@@ -81,3 +88,5 @@ body {
   color: #ff4802;
   border: solid #ff4802; 
 }
+
+
