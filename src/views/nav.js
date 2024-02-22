@@ -1,6 +1,6 @@
 import logo from '../img/fox.png';
 import greenBot from '../img/fox_green.png';
-import viewContacts from './contacts';
+import viewBotList from './botslist';
 
 export default () => (`
 <div class="Nav">
@@ -17,7 +17,7 @@ export default () => (`
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      ${viewContacts()}
+      ${viewBotList()}
     </div>
     </div>
   </div>
