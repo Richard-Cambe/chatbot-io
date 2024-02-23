@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+.user-message{
+    display: flex;
+}
+
+.user-messsage-empty{
+    height: fit-content;
+    background-color: #ff4802;
+    width: 50%;
+}
+
+.user-message-full{
+    height: fit-content;
+    width: 50%;
+    display: flex;
+}
+
+.user-message-card{
+    min-height: 150px;
+    width: 80%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 20px;
+    border: groove #272727;
+    box-shadow: 6px 4px 8px #272727;
+}
+.user-info{
+    width: fit-content;
+}
+
+.user-info > p{
+    font-size: smaller;
+    text-align: center;
+}
+.user-info > img{
+    align-items: center;
+    width: 100px;
+}

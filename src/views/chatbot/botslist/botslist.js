@@ -1,4 +1,4 @@
-import tutu from './bot';
+import tutu from '../bot/bot';
 
 export default () => (`
   <ul class="list-group list-group-flush">

@@ -1,6 +1,6 @@
-import logo from '../img/fox.png';
-import greenBot from '../img/fox_green.png';
-import viewBotList from './botslist';
+import logo from './img/fox.png';
+import greenBot from './img/fox_green.png';
+import viewBotList from '../chatbot/botslist/botslist';
 
 export default () => (`
 <div class="Nav">
