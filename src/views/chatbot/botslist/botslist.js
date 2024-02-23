@@ -6,6 +6,5 @@ export default () => (`
     ${tutu(3)}
     ${tutu(2)}
     ${tutu(100)}
-    ${tutu(2)}  
   </ul>
 `);

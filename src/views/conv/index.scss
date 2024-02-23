@@ -1,1 +1,51 @@
 @charset "utf-8";
+
+.messageTop{
+    height: 130px;
+}
+
+.messageBottom{
+    height: 80px;
+}
+
+.input-text{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 1em;
+}
+.input-text > input{
+    width: 90%;
+    margin-right: 0.4em;
+    height: 2.1em;
+    font-weight: 500;
+    padding-left: 0.8em;
+    border-top-right-radius: 0%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 0%;
+    border: solid #DEE2E6;
+}
+
+.input-text > button{
+    background-color: #ff4802;
+    color: #fff;
+    border: none;
+    height: 2.5em;
+    font-size: smaller;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.input-text > button:hover{
+    background-color: #fff;
+    color: #ff4802;
+    border: solid #ff4802;
+}

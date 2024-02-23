@@ -1,2 +1,54 @@
 @charset "utf-8";
 
+.nav{
+    width: 100%;
+    height: 100px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-bottom: solid #ff4802;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    position: fixed;
+    z-index: 1000;
+    background-color: #fff;
+    margin-bottom: 3em;
+}
+
+.nav > img{
+    width: 10%;
+}
+
+.nav > a{
+    text-decoration: none;
+    color: #ff4802;
+    text-align: center;
+}
+
+.nav-bot-icons{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bot-icons > img{
+    width: 70px;
+}
+
+.nav-bot-icons > button{
+    background-color: #ff4802;
+    border-radius: 45px;
+    border: none;
+    color: #fff;
+    padding-right: 0.8em;
+    padding-left:0.8em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    height: fit-content;
+}
+
+.nav-bot-icons > button:hover{
+    background-color: #fff;
+    color: #ff4802;
+    border: solid #ff4802;
+}
