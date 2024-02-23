@@ -1,6 +1,4 @@
-@charset "utf-8";
-
-.home_title{
+.lost_title{
   width:100%;
   height:100vh;
   display:flex;
@@ -8,7 +6,7 @@
   z-index:0;
 }
 
-.home_h1{
+.lost_h1{
   color: linear-gradient(#ff4802, #000);
   text-shadow: 1px 1px #7e2603,
   -1px 1px #7e2603,
@@ -26,12 +24,11 @@
   height : 45vh;
   opacity: 65%;
 }
-
 .button{
   max-height: 2.5rem;
   margin-top: 30%;
 }
-.hellobutton{
+.lostbutton{
   justify-content: center;
   align-self: center;
   width: 10rem;
@@ -39,11 +36,11 @@
   background-color: #ff4802;
   color:#fff;
 }
-.hellobutton:hover{
+.lostbutton:hover{
   background-color: #fff;
   color:#ff4802;
 }
-.hellolink{
+.lostlink{
   margin-top: 32rem;
   height:1.9rem;
   width:10rem;

@@ -1,3 +1,5 @@
+import view404 from '../views/404/404';
+
 const Quatre04 = class {
   constructor() {
     this.el = document.querySelector('#root');
@@ -7,8 +9,7 @@ const Quatre04 = class {
 
   render() {
     return `
-      <h1>404</h1>
-      <p class="tutu"> hello </p>
+      ${view404()}
     `;
   }
 

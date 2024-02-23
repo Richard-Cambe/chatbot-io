@@ -5,6 +5,6 @@ export default () => (`
   <div class="home_title">
     <h1 class="home_h1">Chatbot-io</h1>
     <img class="logo" src='${homefox}'/>
-    <a href="/chatbot"><button class="hellobutton" type ="button">Start chatting</button></a>
+    <a class="hellolink" href="/chatbot"><button class="hellobutton" type ="button">Start chatting</button></a>
   </div>
 `);
