@@ -1,1 +1,46 @@
 @charset "utf-8";
+
+.home_title{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content: center;
+  z-index:0;
+}
+
+.home_h1{
+  color: linear-gradient(#ff4802, #000);
+  text-shadow: 1px 1px #7e2603,
+  -1px 1px #7e2603,
+  1px -1px #7e2603,
+  -1px -1px #7e2603;
+  align-self: center;
+  position: absolute;
+  z-index:1;
+}
+
+.logo{
+  position: absolute;
+  align-self: center;
+  width : 30vw;
+  height : 45vh;
+  opacity: 65%;
+}
+
+.button{
+  max-height: 40px;
+  margin-top: 30%;
+}
+.hellobutton{
+  margin-top: 336%;
+  justify-content: center;
+  align-self: center;
+  width: 150px;
+  height:30px;
+  background-color: #ff4802;
+  color:#fff;
+}
+.hellobutton:hover{
+  background-color: #fff;
+  color:#ff4802;
+}
