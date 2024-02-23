@@ -1,4 +1,4 @@
-import homefox from '../img/fox.png';
+import viewHome from '../views/home/home';
 
 const Home = class {
   constructor(params) {
@@ -10,10 +10,7 @@ const Home = class {
 
   render() {
     return `
-      <div class="home_title" style="background-image: url("${homefox}")">
-        <h1 class="home_h1">Chatbot-io</h1></div>
-        <img src='${homefox}'/>
-          <a href="/message"><button class="hello" type ="button">hello</button></a>    
+      ${viewHome()}
     `;
   }
 
