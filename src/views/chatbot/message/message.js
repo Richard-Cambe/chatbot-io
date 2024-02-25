@@ -2,12 +2,14 @@ import logo from '../img/fox.png';
 import user from '../img/user.png';
 import './index.scss';
 
-export default (test, time, message) => (
-  test === 'bot' ? (`
+export default (test, botImage, time, message) => {
+  const imageSrc = botImage || logo;
+
+  return test === 'bot' ? (`
     <section class="user-message">
       <div class="user-message-full">
         <div class="user-info">
-          <img src="${logo}" alt="">
+          <img src="${imageSrc}" alt="Bot">
           <p>${time}</p>
         </div>
         <div class="user-message-card">
@@ -24,10 +26,10 @@ export default (test, time, message) => (
           <p>${message}</p>
         </div>
         <div class="user-info">
-          <img src="${user}" alt="">
+          <img src="${user}" alt="User">
           <p>${time}</p>
         </div>
       </div>
     </section>
-  `)
-);
+  `);
+};
