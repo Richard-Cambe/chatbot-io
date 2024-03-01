@@ -5,11 +5,15 @@ import basicBot from '../img/fox.png';
 import viewNav from '../views/nav/nav';
 import viewConv from '../views/conv/conv';
 import viewMessage from '../views/chatbot/message/message';
+import OpenWeatherAPI from '../class/weather';
+import CocktailsAPI from '../class/Cocktails';
 
 const Chatbot = class {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
+    this.weatherAPI = new OpenWeatherAPI('e676494295147bd631b1a74058149074');
+    this.CocktailsAPI = new CocktailsAPI('c334bb4508mshb03669024827d94p149615jsnb6fd1c7a7512');
     this.bots = [
       {
         name: 'Basic Bot',
@@ -29,13 +33,15 @@ const Chatbot = class {
         name: 'Green Bot',
         image: greenBot,
         actions: ['hello'],
-        color: 'green'
+        color: 'green',
+        colorCode: '#3FB430'
       },
       {
         name: 'Pink Bot',
         image: pinkBot,
         actions: ['hello'],
-        color: 'pink'
+        color: 'pink',
+        colorCode: '#CF11D8'
       }
     ];
 
@@ -44,6 +50,16 @@ const Chatbot = class {
 
   autoScroll() {
     window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  static getTodayDate() {
+    const date = new Date();
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const formattedDate = `${day}-${month}-${year}`;
+
+    return formattedDate;
   }
 
   static getTime() {
@@ -61,22 +77,36 @@ const Chatbot = class {
     const message = messageInput.value.trim();
     if (message !== '') {
       const time = Chatbot.getTime();
+      const day = Chatbot.getTodayDate();
       const messageDisplay = document.querySelector('#messageDisplay');
       const color = 'none';
-      messageDisplay.innerHTML += viewMessage('user', color, time, message);
+      const name = 'user';
+      const colorCode = '#14B0C0';
+      messageDisplay.innerHTML += viewMessage('user', color, colorCode, name, time, day, message);
       messageInput.value = '';
       this.autoScroll();
 
       if (messageDisplay.innerHTML.includes(message)) {
-        switch (message.toLowerCase()) {
-          case 'hello':
+        switch (true) {
+          case message.toLowerCase().startsWith('hello'):
             this.botHello();
             break;
-          case 'help':
+          case message.toLowerCase().startsWith('help'):
             this.botHelp();
             break;
+          case message.toLowerCase().startsWith('meteo '): {
+            const cityName = message.substring(6);
+            this.botWeather(cityName);
+            break;
+          }
+          case message.toLowerCase().startsWith('alcool '): {
+            const alcoolName = message.substring(7);
+            this.botDrinks(alcoolName);
+            break;
+          }
           default:
             this.botBase();
+            break;
         }
       }
     }
@@ -86,9 +116,12 @@ const Chatbot = class {
     const messageDisplay = document.querySelector('#messageDisplay');
     if (messageContent.trim() !== '') {
       const time = Chatbot.getTime();
+      const day = Chatbot.getTodayDate();
       const foundBot = this.bots.find((bot) => bot.color === color);
       const botImage = foundBot ? foundBot.image : null;
-      messageDisplay.innerHTML += viewMessage('bot', botImage, time, messageContent);
+      const name = foundBot ? foundBot.name : null;
+      const colorCode = foundBot ? foundBot.colorCode : null;
+      messageDisplay.innerHTML += viewMessage('bot', botImage, colorCode, name, time, day, messageContent);
       this.autoScroll();
     }
   }
@@ -115,6 +148,34 @@ const Chatbot = class {
         this.addBotMessage(bot.color, 'Avez vous besoin d aide? ');
       }
     });
+  }
+
+  async botWeather(cityName) {
+    try {
+      const data = await this.weatherAPI.getWeather(cityName);
+      if (data && data.main && data.weather) {
+        const message = `Météo à ${data.name}: ${data.main.temp} °C, ${data.weather[0].description}`;
+        this.addBotMessage('yellow', message);
+      } else {
+        this.addBotMessage('yellow', 'Données météorologiques non disponibles.');
+      }
+    } catch (error) {
+      this.addBotMessage('yellow', 'Erreur lors de la récupération des données météo.');
+    }
+  }
+
+  async botDrinks(alcool) {
+    try {
+      const data = await this.CocktailsAPI.getDrinks(alcool);
+      if (data) {
+        const message = `Alcool à ${data.body[0].name}:`;
+        this.addBotMessage('pink', message);
+      } else {
+        this.addBotMessage('pink', 'Données météorologiques non disponibles.');
+      }
+    } catch (error) {
+      this.addBotMessage('pink', 'Erreur lors de la récupération des données météo.');
+    }
   }
 
   sendMessage() {

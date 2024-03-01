@@ -1,18 +1,18 @@
-import logo from '../img/fox.png';
 import user from '../img/user.png';
 import './index.scss';
 
-export default (test, botImage, time, message) => {
-  const imageSrc = botImage || logo;
+export default (test, botImage, colorCode, name, time, day, message) => {
+  const imageSrc = botImage;
 
   return test === 'bot' ? (`
     <section class="user-message">
       <div class="user-message-full">
         <div class="user-info">
           <img src="${imageSrc}" alt="Bot">
-          <p>${time}</p>
+          <p class="day-time"><span class="message-day">${day}</span>${time}</p>
         </div>
         <div class="user-message-card">
+          <b><p class="underline-name" style="text-decoration-color:${colorCode};">${name}</p></b>
           <p>${message}</p>
         </div>
       </div>
@@ -23,11 +23,12 @@ export default (test, botImage, time, message) => {
       <div class="user-messsage-empty"></div>
       <div class="user-message-full">
         <div class="user-message-card">
+          <b><p class="underline-name" style="text-decoration-color:${colorCode};">${name}</p></b>
           <p>${message}</p>
         </div>
         <div class="user-info">
           <img src="${user}" alt="User">
-          <p>${time}</p>
+          <p class="day-time"><span class="message-day">${day}</span>${time}</p>
         </div>
       </div>
     </section>
