@@ -25,14 +25,14 @@ const Chatbot = class {
       {
         name: 'Yellow Bot',
         image: yellowBot,
-        actions: ['hello'],
+        actions: ['hello', 'meteo'],
         color: 'yellow',
         colorCode: '#D2CD2E'
       },
       {
         name: 'Green Bot',
         image: greenBot,
-        actions: ['hello'],
+        actions: ['hello', 'memes'],
         color: 'green',
         colorCode: '#3FB430'
       },
@@ -44,6 +44,36 @@ const Chatbot = class {
         colorCode: '#CF11D8'
       }
     ];
+
+    this.salutationsParLangue = {
+      Français: 'Bonjour',
+      Anglais: 'Hello',
+      Espagnol: 'Hola',
+      Allemand: 'Guten Tag',
+      Italien: 'Buongiorno',
+      Mandarin: '你好',
+      Arabe: 'مرحبا',
+      Japonais: 'こんにちは',
+      Portugais: 'Bom dia',
+      Néerlandais: 'Goedendag',
+      Suédois: 'God dag',
+      Norvégien: 'Hei',
+      Danois: 'Hej',
+      Estonien: 'Tere',
+      Letton: 'Sveiki',
+      Lituanien: 'Labas',
+      Polonais: 'Cześć',
+      Tchèque: 'Ahoj',
+      Slovaque: 'Ahoj',
+      Hongrois: 'Szervusz',
+      Russe: 'Zdravstvuyte',
+      Turc: 'Merhaba',
+      Grec: 'γειά σου',
+      Hébreu: 'Shalom',
+      Hindi: 'Namaste',
+      Thaï: 'Sawasdee',
+      Coréen: 'Annyeonghaseyo'
+    };
 
     this.run();
   }
@@ -87,9 +117,11 @@ const Chatbot = class {
       this.autoScroll();
 
       if (messageDisplay.innerHTML.includes(message)) {
+        const salutations = Object.values(this.salutationsParLangue)
+          .map((salut) => salut.toLowerCase());
         switch (true) {
-          case message.toLowerCase().startsWith('hello'):
-            this.botHello();
+          case salutations.includes(message.toLowerCase()):
+            this.botHello(message);
             break;
           case message.toLowerCase().startsWith('help'):
             this.botHelp();
@@ -126,10 +158,11 @@ const Chatbot = class {
     }
   }
 
-  botHello() {
+  botHello(salutation) {
     this.bots.forEach((bot) => {
       if (bot.actions.includes('hello')) {
-        this.addBotMessage(bot.color, 'Hello User');
+        const messageContent = `${salutation.charAt(0).toUpperCase() + salutation.slice(1).toLowerCase()} User!`;
+        this.addBotMessage(bot.color, messageContent);
       }
     });
   }
@@ -151,17 +184,18 @@ const Chatbot = class {
   }
 
   async botWeather(cityName) {
-    try {
-      const data = await this.weatherAPI.getWeather(cityName);
-      if (data && data.main && data.weather) {
-        const message = `Météo à ${data.name}: ${data.main.temp} °C, ${data.weather[0].description}`;
-        this.addBotMessage('yellow', message);
-      } else {
-        this.addBotMessage('yellow', 'Données météorologiques non disponibles.');
+    this.bots.forEach(async (bot) => {
+      if (bot.actions.includes('meteo')) {
+        const weatherData = await this.weatherAPI.getWeather(cityName);
+        if (weatherData && weatherData.main && weatherData.weather
+          && weatherData.weather.length > 0) {
+          const message = `Météo à ${cityName}: ${weatherData.main.temp}°C, ${weatherData.weather[0].description}`;
+          this.addBotMessage(bot.color, message);
+        } else {
+          this.addBotMessage(bot.color, "La ville que vous avez écrit n'est pas valide.");
+        }
       }
-    } catch (error) {
-      this.addBotMessage('yellow', 'Erreur lors de la récupération des données météo.');
-    }
+    });
   }
 
   async botDrinks(alcool) {
