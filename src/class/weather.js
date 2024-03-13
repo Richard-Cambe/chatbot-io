@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class OpenWeatherAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
@@ -8,9 +10,8 @@ class OpenWeatherAPI {
     const url = `${this.baseUrl}?q=${cityName}&appid=${this.apiKey}&units=metric&lang=fr`;
 
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data;
+      const response = await axios.get(url);
+      return response.data;
     } catch (error) {
       return null;
     }
