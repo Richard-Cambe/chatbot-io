@@ -45,6 +45,17 @@ const Chatbot = class {
       }
     ];
 
+    this.salutations = [
+      {
+        langue: 'Français',
+        mot: 'Bonjour'
+      },
+      {
+        langue: 'Anglais',
+        mot: 'Hello'
+      }
+    ];
+
     this.salutationsParLangue = {
       Français: 'Bonjour',
       Anglais: 'Hello',
@@ -161,8 +172,12 @@ const Chatbot = class {
   botHello(salutation) {
     this.bots.forEach((bot) => {
       if (bot.actions.includes('hello')) {
-        const messageContent = `${salutation.charAt(0).toUpperCase() + salutation.slice(1).toLowerCase()} User!`;
-        this.addBotMessage(bot.color, messageContent);
+        this.salutations.forEach((partie) => {
+          if (partie.mot.toLowerCase().includes(salutation.toLowerCase())) {
+            const messageContent = `${salutation.charAt(0).toUpperCase() + salutation.slice(1).toLowerCase()} User! Vous êtes ${partie.langue}?`;
+            this.addBotMessage(bot.color, messageContent);
+          }
+        });
       }
     });
   }
