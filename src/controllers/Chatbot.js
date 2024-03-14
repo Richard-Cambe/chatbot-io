@@ -32,14 +32,14 @@ const Chatbot = class {
       {
         name: 'Green Bot',
         image: greenBot,
-        actions: ['hello', 'memes'],
+        actions: ['hello'],
         color: 'green',
         colorCode: '#3FB430'
       },
       {
         name: 'Pink Bot',
         image: pinkBot,
-        actions: ['hello'],
+        actions: ['hello', 'drink'],
         color: 'pink',
         colorCode: '#CF11D8'
       }
@@ -142,9 +142,8 @@ const Chatbot = class {
             this.botWeather(cityName);
             break;
           }
-          case message.toLowerCase().startsWith('alcool '): {
-            const alcoolName = message.substring(7);
-            this.botDrinks(alcoolName);
+          case message.toLowerCase().startsWith('alcool'): {
+            this.botDrinks();
             break;
           }
           default:
@@ -213,18 +212,22 @@ const Chatbot = class {
     });
   }
 
-  async botDrinks(alcool) {
-    try {
-      const data = await this.CocktailsAPI.getDrinks(alcool);
-      if (data) {
-        const message = `Alcool à ${data.body[0].name}:`;
-        this.addBotMessage('pink', message);
-      } else {
-        this.addBotMessage('pink', 'Données météorologiques non disponibles.');
+  async botDrinks() {
+    this.bots.forEach(async (bot) => {
+      if (bot.actions.includes('drink')) {
+        const drinksData = await this.CocktailsAPI.getRandomCocktail();
+        if (drinksData && drinksData.body && drinksData.body.length > 0) {
+          const cocktail = drinksData.body[0];
+          let message = `<b>${cocktail.name}:</b><br>`;
+          cocktail.ingredients.forEach((ingredient) => {
+            message += `  • ${ingredient}<br>`;
+          });
+          this.addBotMessage(bot.color, message);
+        } else {
+          this.addBotMessage(bot.color, 'Erreur dans la recherche de cocktail!');
+        }
       }
-    } catch (error) {
-      this.addBotMessage('pink', 'Erreur lors de la récupération des données météo.');
-    }
+    });
   }
 
   sendMessage() {
