@@ -7,13 +7,15 @@ import viewConv from '../views/conv/conv';
 import viewMessage from '../views/chatbot/message/message';
 import OpenWeatherAPI from '../class/weather';
 import CocktailsAPI from '../class/Cocktails';
+import TennisAPI from '../class/Tennis';
 
 const Chatbot = class {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
     this.weatherAPI = new OpenWeatherAPI('e676494295147bd631b1a74058149074');
-    this.CocktailsAPI = new CocktailsAPI('c334bb4508mshb03669024827d94p149615jsnb6fd1c7a7512');
+    this.CocktailsAPI = new CocktailsAPI();
+    this.TennisAPI = new TennisAPI('c334bb4508mshb03669024827d94p149615jsnb6fd1c7a7512');
     this.bots = [
       {
         name: 'Basic Bot',
@@ -32,7 +34,7 @@ const Chatbot = class {
       {
         name: 'Green Bot',
         image: greenBot,
-        actions: ['hello'],
+        actions: ['hello', 'tennis'],
         color: 'green',
         colorCode: '#3FB430'
       },
@@ -146,6 +148,12 @@ const Chatbot = class {
             this.botDrinks();
             break;
           }
+          case message.toLowerCase().startsWith('tennis '): {
+            const genre = message.substring(7, 10);
+            const ranking = message.substring(11);
+            this.botTennis(genre, ranking);
+            break;
+          }
           default:
             this.botBase();
             break;
@@ -225,6 +233,31 @@ const Chatbot = class {
           this.addBotMessage(bot.color, message);
         } else {
           this.addBotMessage(bot.color, 'Erreur dans la recherche de cocktail!');
+        }
+      }
+    });
+  }
+
+  async botTennis(genre, ranking) {
+    this.bots.forEach(async (bot) => {
+      if (bot.actions.includes('tennis')) {
+        const tennisData = await this.TennisAPI.getTennisPlayer(genre);
+        if (tennisData && tennisData.data && Array.isArray(tennisData.data)
+          && tennisData.data.length > 0) {
+          const index = ranking - 1;
+          if (index >= 0 && index < tennisData.data.length) {
+            const playerData = tennisData.data[index];
+            if (playerData && playerData.player) {
+              const message = `${playerData.player.name}`;
+              this.addBotMessage(bot.color, message);
+            } else {
+              this.addBotMessage(bot.color, 'Les données du joueur sont indisponibles.');
+            }
+          } else {
+            this.addBotMessage(bot.color, "Le classement spécifié n'est pas valide.");
+          }
+        } else {
+          this.addBotMessage(bot.color, 'Erreur dans la recherche du joueur!');
         }
       }
     });
