@@ -8,6 +8,7 @@ import viewMessage from '../views/chatbot/message/message';
 import OpenWeatherAPI from '../class/weather';
 import CocktailsAPI from '../class/Cocktails';
 import TennisAPI from '../class/Tennis';
+import TestAPI from '../class/TestBack';
 
 const Chatbot = class {
   constructor(params) {
@@ -16,11 +17,12 @@ const Chatbot = class {
     this.weatherAPI = new OpenWeatherAPI('e676494295147bd631b1a74058149074');
     this.CocktailsAPI = new CocktailsAPI();
     this.TennisAPI = new TennisAPI('c334bb4508mshb03669024827d94p149615jsnb6fd1c7a7512');
+    this.TestAPI = new TestAPI();
     this.bots = [
       {
         name: 'Basic Bot',
         image: basicBot,
-        actions: ['help', 'random'],
+        actions: ['help', 'random', 'test'],
         color: 'orange',
         colorCode: '#ff4802'
       },
@@ -154,6 +156,10 @@ const Chatbot = class {
             this.botTennis(genre, ranking);
             break;
           }
+          case message.toLowerCase().startsWith('test'): {
+            this.botTest();
+            break;
+          }
           default:
             this.botBase();
             break;
@@ -259,6 +265,18 @@ const Chatbot = class {
         } else {
           this.addBotMessage(bot.color, 'Erreur dans la recherche du joueur!');
         }
+      }
+    });
+  }
+
+  async botTest() {
+    this.bots.forEach(async (bot) => {
+      if (bot.actions.includes('test')) {
+        const testData = await this.TestAPI.getBackMessage();
+        testData.forEach((data) => {
+          const message = `${data.author} - ${data.text}`;
+          this.addBotMessage(bot.color, message);
+        });
       }
     });
   }
