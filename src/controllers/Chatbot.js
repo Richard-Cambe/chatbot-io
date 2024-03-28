@@ -273,9 +273,11 @@ const Chatbot = class {
     this.bots.forEach(async (bot) => {
       if (bot.actions.includes('test')) {
         const testData = await this.TestAPI.getBackMessage();
+        console.log(testData);
+        console.log(testData[0]);
         testData.forEach((data) => {
-          const message = `${data.author} - ${data.text}`;
-          this.addBotMessage(bot.color, message);
+          const message = `${data.name} - ${data.content}`;
+          this.addBotMessage('pink', message);
         });
       }
     });
