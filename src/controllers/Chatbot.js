@@ -1,3 +1,4 @@
+import axios from 'axios';
 import yellowBot from '../img/fox_yellow.png';
 import greenBot from '../img/fox_green.png';
 import pinkBot from '../img/fox_pink.png';
@@ -8,7 +9,7 @@ import viewMessage from '../views/chatbot/message/message';
 import OpenWeatherAPI from '../class/weather';
 import CocktailsAPI from '../class/Cocktails';
 import TennisAPI from '../class/Tennis';
-import TestAPI from '../class/TestBack';
+import BackAPI from '../class/Back';
 
 const Chatbot = class {
   constructor(params) {
@@ -17,7 +18,7 @@ const Chatbot = class {
     this.weatherAPI = new OpenWeatherAPI('e676494295147bd631b1a74058149074');
     this.CocktailsAPI = new CocktailsAPI();
     this.TennisAPI = new TennisAPI('c334bb4508mshb03669024827d94p149615jsnb6fd1c7a7512');
-    this.TestAPI = new TestAPI();
+    this.BackAPI = new BackAPI();
     this.bots = [
       {
         name: 'Basic Bot',
@@ -57,6 +58,10 @@ const Chatbot = class {
       {
         langue: 'Anglais',
         mot: 'Hello'
+      },
+      {
+        langue: 'Espagnol',
+        mot: 'Hola'
       }
     ];
 
@@ -102,7 +107,7 @@ const Chatbot = class {
     const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    const formattedDate = `${day}-${month}-${year}`;
+    const formattedDate = `${year}-${month}-${day}`;
 
     return formattedDate;
   }
@@ -156,14 +161,11 @@ const Chatbot = class {
             this.botTennis(genre, ranking);
             break;
           }
-          case message.toLowerCase().startsWith('test'): {
-            this.botTest();
-            break;
-          }
           default:
             this.botBase();
             break;
         }
+        this.sendToBackend(message);
       }
     }
   }
@@ -269,17 +271,34 @@ const Chatbot = class {
     });
   }
 
-  async botTest() {
-    this.bots.forEach(async (bot) => {
-      if (bot.actions.includes('test')) {
-        const testData = await this.TestAPI.getBackMessage();
-        console.log(testData);
-        console.log(testData[0]);
-        testData.forEach((data) => {
-          const message = `${data.name} - ${data.content}`;
-          this.addBotMessage('pink', message);
-        });
-      }
+  async sendToBackend(messageContent) {
+    try {
+      const response = await axios.post('http://localhost:80/messages', {
+        message: messageContent
+      });
+      console.log('Message envoyé avec succès :', response.data);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message :', error);
+    }
+  }
+
+  messagesLoad(type, color, messageContent, time, day) {
+    const messageDisplay = document.querySelector('#messageDisplay');
+    const foundBot = this.bots.find((bot) => bot.color === color);
+    const botImage = foundBot ? foundBot.image : null;
+    const name = foundBot ? foundBot.name : 'USER';
+    const colorCode = foundBot ? foundBot.colorCode : '#14B0C0';
+    messageDisplay.innerHTML
+      += viewMessage(type, botImage, colorCode, name, time, day, messageContent);
+  }
+
+  Load() {
+    window.addEventListener('load', async () => {
+      const backData = await this.BackAPI.getBackMessage();
+      backData.forEach((data) => {
+        const message = `${data.content}`;
+        this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
+      });
     });
   }
 
@@ -304,8 +323,9 @@ const Chatbot = class {
 
   run() {
     this.el.innerHTML = this.render();
-    this.autoScroll();
     this.sendMessage();
+    this.Load();
+    this.autoScroll();
   }
 };
 
