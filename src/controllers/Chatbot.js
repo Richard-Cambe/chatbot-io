@@ -136,6 +136,16 @@ const Chatbot = class {
       messageInput.value = '';
       this.autoScroll();
 
+      const data = {
+        type: '',
+        name,
+        content: message,
+        botColor: (color === 'none') ? '#14B0C0' : color,
+        day,
+        time
+      };
+      this.sendToBackend(data);
+
       if (messageDisplay.innerHTML.includes(message)) {
         const salutations = Object.values(this.salutationsParLangue)
           .map((salut) => salut.toLowerCase());
@@ -165,7 +175,6 @@ const Chatbot = class {
             this.botBase();
             break;
         }
-        this.sendToBackend(message);
       }
     }
   }
@@ -181,6 +190,16 @@ const Chatbot = class {
       const colorCode = foundBot ? foundBot.colorCode : null;
       messageDisplay.innerHTML += viewMessage('bot', botImage, colorCode, name, time, day, messageContent);
       this.autoScroll();
+
+      const data = {
+        type: 'bot',
+        name,
+        content: messageContent,
+        botColor: color,
+        day,
+        time
+      };
+      this.sendToBackend(data);
     }
   }
 
@@ -273,12 +292,10 @@ const Chatbot = class {
 
   async sendToBackend(messageContent) {
     try {
-      const response = await axios.post('http://localhost:80/messages', {
-        message: messageContent
-      });
-      console.log('Message envoyé avec succès :', response.data);
+      const response = await axios.post('http://localhost:80/messages', messageContent);
+      return response;
     } catch (error) {
-      console.error('Erreur lors de l\'envoi du message :', error);
+      return error;
     }
   }
 
@@ -290,6 +307,7 @@ const Chatbot = class {
     const colorCode = foundBot ? foundBot.colorCode : '#14B0C0';
     messageDisplay.innerHTML
       += viewMessage(type, botImage, colorCode, name, time, day, messageContent);
+    this.autoScroll();
   }
 
   Load() {
