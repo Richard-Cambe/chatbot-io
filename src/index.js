@@ -9,6 +9,9 @@ const routes = [{
 }, {
   url: '/chatbot',
   controller: Chatbot
+}, {
+  url: '/chatbot?bot=:bot',
+  controller: Chatbot
 }];
 
 new Router(routes);

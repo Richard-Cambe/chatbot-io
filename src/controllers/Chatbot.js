@@ -1,4 +1,3 @@
-import axios from 'axios';
 import yellowBot from '../img/fox_yellow.png';
 import greenBot from '../img/fox_green.png';
 import pinkBot from '../img/fox_pink.png';
@@ -23,7 +22,7 @@ const Chatbot = class {
       {
         name: 'Basic Bot',
         image: basicBot,
-        actions: ['help', 'random', 'test'],
+        actions: ['help', 'random'],
         color: 'orange',
         colorCode: '#ff4802'
       },
@@ -125,55 +124,60 @@ const Chatbot = class {
   addMessage() {
     const messageInput = document.querySelector('#messageInput');
     const message = messageInput.value.trim();
+
     if (message !== '') {
       const time = Chatbot.getTime();
       const day = Chatbot.getTodayDate();
+
       const messageDisplay = document.querySelector('#messageDisplay');
-      const color = 'none';
-      const name = 'user';
-      const colorCode = '#14B0C0';
-      messageDisplay.innerHTML += viewMessage('user', color, colorCode, name, time, day, message);
+      const defaultColor = '#14B0C0';
+      const userName = 'user';
+
+      messageDisplay.innerHTML += viewMessage(userName, 'none', defaultColor, userName, time, day, message);
       messageInput.value = '';
       this.autoScroll();
 
       const data = {
         type: '',
-        name,
+        name: userName,
         content: message,
-        botColor: (color === 'none') ? '#14B0C0' : color,
+        botColor: defaultColor,
         day,
-        time
+        time,
+        api: ''
       };
-      this.sendToBackend(data);
 
       if (messageDisplay.innerHTML.includes(message)) {
         const salutations = Object.values(this.salutationsParLangue)
           .map((salut) => salut.toLowerCase());
-        switch (true) {
-          case salutations.includes(message.toLowerCase()):
-            this.botHello(message);
-            break;
-          case message.toLowerCase().startsWith('help'):
-            this.botHelp();
-            break;
-          case message.toLowerCase().startsWith('meteo '): {
-            const cityName = message.substring(6);
-            this.botWeather(cityName);
-            break;
-          }
-          case message.toLowerCase().startsWith('alcool'): {
-            this.botDrinks();
-            break;
-          }
-          case message.toLowerCase().startsWith('tennis '): {
-            const genre = message.substring(7, 10);
-            const ranking = message.substring(11);
-            this.botTennis(genre, ranking);
-            break;
-          }
-          default:
-            this.botBase();
-            break;
+
+        if (salutations.includes(message.toLowerCase())) {
+          data.api = 'hello';
+          this.BackAPI.sendToBackend(data);
+          this.botHello(message);
+        } else if (message.toLowerCase().startsWith('help')) {
+          data.api = 'help';
+          this.BackAPI.sendToBackend(data);
+          this.botHelp();
+        } else if (message.toLowerCase().startsWith('meteo ')) {
+          data.api = 'meteo';
+          this.BackAPI.sendToBackend(data);
+          const cityName = message.substring(6);
+          this.botWeather(cityName);
+        } else if (message.toLowerCase().startsWith('alcool')) {
+          data.api = 'drink';
+          this.BackAPI.sendToBackend(data);
+          this.botDrinks();
+        } else if (message.toLowerCase().startsWith('tennis ')) {
+          data.api = 'tennis';
+          this.BackAPI.sendToBackend(data);
+          const genre = message.substring(7, 10);
+          const ranking = message.substring(11);
+          this.botTennis(genre, ranking);
+        } else {
+          data.api = 'random';
+          this.BackAPI.sendToBackend(data);
+          this.botBase();
         }
       }
     }
@@ -199,7 +203,7 @@ const Chatbot = class {
         day,
         time
       };
-      this.sendToBackend(data);
+      this.BackAPI.sendToBackend(data);
     }
   }
 
@@ -290,15 +294,6 @@ const Chatbot = class {
     });
   }
 
-  async sendToBackend(messageContent) {
-    try {
-      const response = await axios.post('http://localhost:80/messages', messageContent);
-      return response;
-    } catch (error) {
-      return error;
-    }
-  }
-
   messagesLoad(type, color, messageContent, time, day) {
     const messageDisplay = document.querySelector('#messageDisplay');
     const foundBot = this.bots.find((bot) => bot.color === color);
@@ -312,12 +307,53 @@ const Chatbot = class {
 
   Load() {
     window.addEventListener('load', async () => {
-      const backData = await this.BackAPI.getBackMessage();
-      backData.forEach((data) => {
-        const message = `${data.content}`;
-        this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
-      });
+      if (this.getBotParam() === null) {
+        const botElement = document.getElementById('basicBot');
+        botElement.classList.add('basicBot');
+        const backData = await this.BackAPI.getBackMessage();
+        if (Array.isArray(backData)) {
+          backData.forEach((data) => {
+            const message = `${data.content}`;
+            this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
+          });
+        }
+      } else if (this.getBotParam() === 'yellowBot') {
+        const botElement = document.getElementById('yellowBot');
+        botElement.classList.add('yellowBot');
+        const backData = await this.BackAPI.getBackYellowMessage();
+        if (Array.isArray(backData)) {
+          backData.forEach((data) => {
+            const message = `${data.content}`;
+            this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
+          });
+        }
+      } else if (this.getBotParam() === 'greenBot') {
+        const botElement = document.getElementById('greenBot');
+        botElement.classList.add('greenBot');
+        const backData = await this.BackAPI.getBackGreenMessage();
+        if (Array.isArray(backData)) {
+          backData.forEach((data) => {
+            const message = `${data.content}`;
+            this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
+          });
+        }
+      } else if (this.getBotParam() === 'pinkBot') {
+        const botElement = document.getElementById('pinkBot');
+        botElement.classList.add('pinkBot');
+        const backData = await this.BackAPI.getBackPinkMessage();
+        if (Array.isArray(backData)) {
+          backData.forEach((data) => {
+            const message = `${data.content}`;
+            this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
+          });
+        }
+      }
     });
+  }
+
+  getBotParam() {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get('bot');
   }
 
   sendMessage() {

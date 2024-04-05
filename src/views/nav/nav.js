@@ -6,17 +6,17 @@ import viewBotList from '../chatbot/botslist/botslist';
 import './index.scss';
 
 const bots = [
-  { image: yellowBot, name: 'Yellow Bot' },
-  { image: greenBot, name: 'Green Bot' },
-  { image: pinkBot, name: 'Pink Bot' }
+  { image: yellowBot, name: 'Yellow Bot', class: 'yellowBot' },
+  { image: greenBot, name: 'Green Bot', class: 'greenBot' },
+  { image: pinkBot, name: 'Pink Bot', class: 'pinkBot' }
 ];
 
 export default () => (`
   <div class="nav">
-    <img src="${logo}" alt="">
+    <a class="logo-link" href="/chatbot"><img src="${logo}" alt="" id="basicBot" ></a>
     <a href="/"><h1>Chatbot-io</h1></a>
     <div class="nav-bot-icons">
-      ${bots.map((bot) => `<img src='${bot.image}' alt='${bot.name}' title='${bot.name}'>`).join('')}
+      ${bots.map((bot) => `<a href="/chatbot?bot=${bot.class}"><img src='${bot.image}' alt='${bot.name}' title='${bot.name}' id='${bot.class}''></a>`).join('')}
       <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fa-solid fa-bars"></i></button>
 
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

@@ -16,9 +16,25 @@
     margin-bottom: 3em;
 }
 
-.nav > img{
+.logo-link{
     width: 10%;
 }
+#basicBot{
+    width: 100%;
+}
+
+.basicBot{ animation: pulse 2s infinite;}
+.pinkBot{ animation: pulse 2s infinite;}
+.greenBot{ animation: pulse 2s infinite;}
+.yellowBot{ animation: pulse 2s infinite;}
+
+@keyframes pulse {
+    0%, 100% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+}
+
+
+
 
 .nav > a{
     text-decoration: none;
@@ -31,7 +47,7 @@
     align-items: center;
 }
 
-.nav-bot-icons > img{
+.nav-bot-icons > a > img{
     width: 70px;
 }
 
