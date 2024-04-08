@@ -231,7 +231,31 @@ const Chatbot = class {
   botHelp() {
     this.bots.forEach((bot) => {
       if (bot.actions.includes('help')) {
-        this.addBotMessage(bot.color, 'Avez vous besoin d aide? ');
+        const message = `
+          <p> Avez vous besoin d'aide? </p>
+          <details>
+            <summary style="text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #D2CD2E;">Yellow Bot: </summary>
+            <ul>
+              <li><b>Hello:</b> dite 'bonjour' dans n'importe quelle langue ce bot vous répond!</li>
+              <li> fbreh </li>
+            </ul>
+          </details>
+          <details>
+            <summary style="text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #3FB430;">Green Bot: </summary>
+            <ul>
+              <li> tutu </li>
+              <li> fbreh </li>
+            </ul>
+          </details>
+          <details>
+            <summary style="text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #CF11D8;">Pink Bot: </summary>
+            <ul>
+              <li> tutu </li>
+              <li> fbreh </li>
+            </ul>
+          </details>
+        `;
+        this.addBotMessage(bot.color, message);
       }
     });
   }
@@ -310,6 +334,7 @@ const Chatbot = class {
       if (this.getBotParam() === null) {
         const botElement = document.getElementById('basicBot');
         botElement.classList.add('basicBot');
+        document.documentElement.style.setProperty('--bot-color', '#ff4802');
         const backData = await this.BackAPI.getBackMessage();
         if (Array.isArray(backData)) {
           backData.forEach((data) => {
@@ -320,6 +345,7 @@ const Chatbot = class {
       } else if (this.getBotParam() === 'yellowBot') {
         const botElement = document.getElementById('yellowBot');
         botElement.classList.add('yellowBot');
+        document.documentElement.style.setProperty('--bot-color', '#D2CD2E');
         const backData = await this.BackAPI.getBackYellowMessage();
         if (Array.isArray(backData)) {
           backData.forEach((data) => {
@@ -330,6 +356,7 @@ const Chatbot = class {
       } else if (this.getBotParam() === 'greenBot') {
         const botElement = document.getElementById('greenBot');
         botElement.classList.add('greenBot');
+        document.documentElement.style.setProperty('--bot-color', '#3FB430');
         const backData = await this.BackAPI.getBackGreenMessage();
         if (Array.isArray(backData)) {
           backData.forEach((data) => {
@@ -340,6 +367,7 @@ const Chatbot = class {
       } else if (this.getBotParam() === 'pinkBot') {
         const botElement = document.getElementById('pinkBot');
         botElement.classList.add('pinkBot');
+        document.documentElement.style.setProperty('--bot-color', '#CF11D8');
         const backData = await this.BackAPI.getBackPinkMessage();
         if (Array.isArray(backData)) {
           backData.forEach((data) => {

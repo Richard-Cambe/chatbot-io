@@ -5,7 +5,7 @@
     height: 100px;
     padding-left: 5%;
     padding-right: 5%;
-    border-bottom: solid #ff4802;
+    border-bottom: solid var(--bot-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,7 +19,8 @@
 .logo-link{
     width: 10%;
 }
-#basicBot{
+
+.logo-nav{
     width: 100%;
 }
 
@@ -38,7 +39,7 @@
 
 .nav > a{
     text-decoration: none;
-    color: #ff4802;
+    color: var(--bot-color);
     text-align: center;
 }
 
@@ -52,7 +53,7 @@
 }
 
 .nav-bot-icons > button{
-    background-color: #ff4802;
+    background-color: var(--bot-color);
     border-radius: 45px;
     border: none;
     color: #fff;
@@ -66,13 +67,13 @@
 
 .nav-bot-icons > button:hover{
     background-color: #fff;
-    color: #ff4802;
-    border: solid #ff4802;
+    color: var(--bot-color);
+    border: solid var(--bot-color);
 }
 
 /**********************************************/
 
 .bots-list-title{
-    text-decoration: underline #ff4802;
+    text-decoration: underline var(--bot-color);
     text-underline-offset: 4px;
 }
