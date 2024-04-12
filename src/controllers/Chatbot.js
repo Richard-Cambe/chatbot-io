@@ -1,7 +1,3 @@
-import yellowBot from '../img/fox_yellow.png';
-import greenBot from '../img/fox_green.png';
-import pinkBot from '../img/fox_pink.png';
-import basicBot from '../img/fox.png';
 import viewNav from '../views/nav/nav';
 import viewConv from '../views/conv/conv';
 import viewMessage from '../views/chatbot/message/message';
@@ -21,78 +17,63 @@ const Chatbot = class {
     this.bots = [
       {
         name: 'Basic Bot',
-        image: basicBot,
+        image: 'http://localhost:81/fox.png',
         actions: ['help', 'random'],
         color: 'orange',
-        colorCode: '#ff4802'
+        colorCode: '#ff4802',
+        class: 'basicBot'
       },
       {
         name: 'Yellow Bot',
-        image: yellowBot,
+        image: 'http://localhost:81/fox_yellow.png',
         actions: ['hello', 'meteo'],
         color: 'yellow',
-        colorCode: '#D2CD2E'
+        colorCode: '#D2CD2E',
+        class: 'yellowBot'
       },
       {
         name: 'Green Bot',
-        image: greenBot,
+        image: 'http://localhost:81/fox_green.png',
         actions: ['hello', 'tennis'],
         color: 'green',
-        colorCode: '#3FB430'
+        colorCode: '#3FB430',
+        class: 'greenBot'
       },
       {
         name: 'Pink Bot',
-        image: pinkBot,
+        image: 'http://localhost:81/fox_pink.png',
         actions: ['hello', 'drink'],
         color: 'pink',
-        colorCode: '#CF11D8'
+        colorCode: '#CF11D8',
+        class: 'pinkBot'
       }
     ];
 
     this.salutations = [
-      {
-        langue: 'Français',
-        mot: 'Bonjour'
-      },
-      {
-        langue: 'Anglais',
-        mot: 'Hello'
-      },
-      {
-        langue: 'Espagnol',
-        mot: 'Hola'
-      }
+      { langue: 'Anglais', mot: 'Hello' },
+      { langue: 'Français', mot: 'Bonjour' },
+      { langue: 'Espagnol', mot: 'Hola' },
+      { langue: 'Allemand', mot: 'Guten Tag' },
+      { langue: 'Italien', mot: 'Buongiorno' },
+      { langue: 'Portugais', mot: 'Bom dia' },
+      { langue: 'Néerlandais', mot: 'Goedendag' },
+      { langue: 'Suédois', mot: 'God dag' },
+      { langue: 'Hébreu', mot: 'Shalom' },
+      { langue: 'Norvégien', mot: 'Hei' },
+      { langue: 'Danois', mot: 'Hej' },
+      { langue: 'Estonien', mot: 'Tere' },
+      { langue: 'Letton', mot: 'Sveiki' },
+      { langue: 'Lituanien', mot: 'Labas' },
+      { langue: 'Polonais', mot: 'Cześć' },
+      { langue: 'Tchèque', mot: 'Ahoj' },
+      { langue: 'Slovaque', mot: 'Ahoj' },
+      { langue: 'Hongrois', mot: 'Szervusz' },
+      { langue: 'Russe', mot: 'Zdravstvuyte' },
+      { langue: 'Turc', mot: 'Merhaba' },
+      { langue: 'Hindi', mot: 'Namaste' },
+      { langue: 'Thaï', mot: 'Sawasdee' },
+      { langue: 'Coréen', mot: 'Annyeonghaseyo' }
     ];
-
-    this.salutationsParLangue = {
-      Français: 'Bonjour',
-      Anglais: 'Hello',
-      Espagnol: 'Hola',
-      Allemand: 'Guten Tag',
-      Italien: 'Buongiorno',
-      Mandarin: '你好',
-      Arabe: 'مرحبا',
-      Japonais: 'こんにちは',
-      Portugais: 'Bom dia',
-      Néerlandais: 'Goedendag',
-      Suédois: 'God dag',
-      Norvégien: 'Hei',
-      Danois: 'Hej',
-      Estonien: 'Tere',
-      Letton: 'Sveiki',
-      Lituanien: 'Labas',
-      Polonais: 'Cześć',
-      Tchèque: 'Ahoj',
-      Slovaque: 'Ahoj',
-      Hongrois: 'Szervusz',
-      Russe: 'Zdravstvuyte',
-      Turc: 'Merhaba',
-      Grec: 'γειά σου',
-      Hébreu: 'Shalom',
-      Hindi: 'Namaste',
-      Thaï: 'Sawasdee',
-      Coréen: 'Annyeonghaseyo'
-    };
 
     this.run();
   }
@@ -148,8 +129,7 @@ const Chatbot = class {
       };
 
       if (messageDisplay.innerHTML.includes(message)) {
-        const salutations = Object.values(this.salutationsParLangue)
-          .map((salut) => salut.toLowerCase());
+        const salutations = this.salutations.map((salut) => salut.mot.toLowerCase());
 
         if (salutations.includes(message.toLowerCase())) {
           data.api = 'hello';
@@ -331,7 +311,7 @@ const Chatbot = class {
 
   Load() {
     window.addEventListener('load', async () => {
-      if (this.getBotParam() === null) {
+      if (this.params.bot === undefined) {
         const botElement = document.getElementById('basicBot');
         botElement.classList.add('basicBot');
         document.documentElement.style.setProperty('--bot-color', '#ff4802');
@@ -342,7 +322,7 @@ const Chatbot = class {
             this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
           });
         }
-      } else if (this.getBotParam() === 'yellowBot') {
+      } else if (this.params.bot === 'yellowBot') {
         const botElement = document.getElementById('yellowBot');
         botElement.classList.add('yellowBot');
         document.documentElement.style.setProperty('--bot-color', '#D2CD2E');
@@ -353,7 +333,7 @@ const Chatbot = class {
             this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
           });
         }
-      } else if (this.getBotParam() === 'greenBot') {
+      } else if (this.params.bot === 'greenBot') {
         const botElement = document.getElementById('greenBot');
         botElement.classList.add('greenBot');
         document.documentElement.style.setProperty('--bot-color', '#3FB430');
@@ -364,7 +344,7 @@ const Chatbot = class {
             this.messagesLoad(data.type, data.botColor, message, data.time, data.day);
           });
         }
-      } else if (this.getBotParam() === 'pinkBot') {
+      } else if (this.params.bot === 'pinkBot') {
         const botElement = document.getElementById('pinkBot');
         botElement.classList.add('pinkBot');
         document.documentElement.style.setProperty('--bot-color', '#CF11D8');
@@ -377,11 +357,6 @@ const Chatbot = class {
         }
       }
     });
-  }
-
-  getBotParam() {
-    const queryParams = new URLSearchParams(window.location.search);
-    return queryParams.get('bot');
   }
 
   sendMessage() {

@@ -1,19 +1,15 @@
-import basicBot from './img/fox.png';
-import greenBot from './img/fox_green.png';
-import yellowBot from './img/fox_yellow.png';
-import pinkBot from './img/fox_pink.png';
 import viewBotList from '../chatbot/botslist/botslist';
 import './index.scss';
 
 const bots = [
-  { image: yellowBot, name: 'Yellow Bot', class: 'yellowBot' },
-  { image: greenBot, name: 'Green Bot', class: 'greenBot' },
-  { image: pinkBot, name: 'Pink Bot', class: 'pinkBot' }
+  { image: 'http://localhost:81/fox_yellow.png', name: 'Yellow Bot', class: 'yellowBot' },
+  { image: 'http://localhost:81/fox_green.png', name: 'Green Bot', class: 'greenBot' },
+  { image: 'http://localhost:81/fox_pink.png', name: 'Pink Bot', class: 'pinkBot' }
 ];
 
 export default () => (`
   <div class="nav">
-    <a class="logo-link" href="/chatbot"><img src="${basicBot}" alt="" id="basicBot" class="logo-nav"></a>
+    <a class="logo-link" href="/chatbot"><img src="http://localhost:81/fox.png" alt="" id="basicBot" class="logo-nav"></a>
     <a href="/"><h1>Chatbot-io</h1></a>
     <div class="nav-bot-icons">
       ${bots.map((bot) => `<a href="/chatbot?bot=${bot.class}"><img src='${bot.image}' alt='${bot.name}' title='${bot.name}' id='${bot.class}''></a>`).join('')}

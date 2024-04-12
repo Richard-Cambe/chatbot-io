@@ -1,4 +1,3 @@
-import user from '../img/user.png';
 import './index.scss';
 
 export default (test, botImage, colorCode, name, time, day, message) => {
@@ -27,7 +26,7 @@ export default (test, botImage, colorCode, name, time, day, message) => {
           <p>${message}</p>
         </div>
         <div class="user-info">
-          <img src="${user}" alt="User">
+          <img src="http://localhost:81/user.png" alt="User">
           <p class="day-time"><span class="message-day">${day}</span>${time}</p>
         </div>
       </div>
